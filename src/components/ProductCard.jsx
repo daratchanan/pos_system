@@ -1,11 +1,12 @@
 import React from 'react';
-import { Avatar, Col, Row, Rate, Typography } from 'antd';
+import { Avatar, Col, Row, Rate, Typography, Card } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 export default function ProductCard({ product }) {
 
    return (
-      <div
+      <Card
+         hoverable
          style={{
             width: "100%",
             background: "white",
@@ -20,7 +21,7 @@ export default function ProductCard({ product }) {
                   src={product.img}
                   size={64}
                   style={{
-                     marginBottom: "10px"
+                     marginBottom: "10px",
                   }}
                />
             </Col>
@@ -28,7 +29,8 @@ export default function ProductCard({ product }) {
                <Rate
                   value={product.rate}
                   style={{
-                     marginBottom: "10px"
+                     marginBottom: "10px",
+                     // width: "10px"
                   }}
                />
                <Typography.Title level={3} style={{ color: "tomato" }}>
@@ -38,15 +40,15 @@ export default function ProductCard({ product }) {
          </Row>
          <Row>
             <Col>
-               <Typography.Title 
-               level={4}
-               ellipsis
+               <Typography.Title
+                  level={4}
+                  ellipsis
                >
                   {product.name}
                </Typography.Title>
             </Col>
          </Row>
 
-      </div>
+      </Card>
    )
 }

@@ -1,23 +1,50 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Col, Row, Button, Card } from 'antd'
 import ProductCard from '../../components/ProductCard'
 import { products } from '../../utils/mocking'
+import OrderCart from '../../components/OrderCart';
 
 export default function Home() {
-   console.log(products);
+   const [menu, setMenu] = useState([]);
 
+   const handleBurger = () => {
+      const burger = products.filter(product => product.categories === "burger")
+      setMenu(burger)
+   }
+
+   const handlePizza = () => {
+      const pizza = products.filter(product => product.categories === "pizza")
+      setMenu(pizza)
+   }
+
+   const handleDrink = () => {
+      const drink = products.filter(product => product.categories === "drink")
+      setMenu(drink)
+   }
+
+   const handleIce = () => {
+      const ice = products.filter(product => product.categories === "ice")
+      setMenu(ice)
+   }
+
+   useEffect(() => {
+      const targetProducts = products.filter(product => product.categories === "burger")
+      setMenu(targetProducts)
+   }, [])
+
+   // console.log(products);
    return (
 
-      <Card
-         hoverable
+      <div
          style={{
             width: "80%",
             margin: "0 auto",
             marginTop: "30px",
-            background: "pink"
+            background: "pink",
+            padding: "16px"
          }}
       >
-         <Row>
+         <Row >
             <Col xs={16}>
                <Row
                   justify="center"
@@ -35,6 +62,7 @@ export default function Home() {
                                  height: "100px",
                                  borderRadius: "30px",
                               }}
+                              onClick={handleBurger}
                            >
                               Burger
                            </Button>
@@ -46,6 +74,7 @@ export default function Home() {
                                  height: "100px",
                                  borderRadius: "30px",
                               }}
+                              onClick={handlePizza}
                            >
                               Pizza
                            </Button>
@@ -57,6 +86,7 @@ export default function Home() {
                                  height: "100px",
                                  borderRadius: "30px",
                               }}
+                              onClick={handleDrink}
                            >
                               Drink
                            </Button>
@@ -68,6 +98,7 @@ export default function Home() {
                                  height: "100px",
                                  borderRadius: "30px",
                               }}
+                              onClick={handleIce}
                            >
                               Ice
                            </Button>
@@ -77,7 +108,7 @@ export default function Home() {
                </Row>
 
                <Row gutter={[16, 16]}>
-                  {products.map((product) =>
+                  {menu.map((product) =>
                      <Col xs={24} sm={12} md={6} key={product.id}>
                         <ProductCard
                            product={product}
@@ -87,10 +118,10 @@ export default function Home() {
                </Row>
             </Col>
             <Col xs={8}>
-               CARTT
+               <OrderCart />
             </Col>
          </Row>
 
-      </Card>
+      </div>
    )
 }
