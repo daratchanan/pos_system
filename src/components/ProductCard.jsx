@@ -2,24 +2,34 @@ import React from 'react';
 import { Avatar, Col, Row, Rate, Typography, Card } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, carts, setCarts }) {
+
+   const onSelectProducts = () => {
+
+      const oldCarts = [...carts];
+      oldCarts.push({...product,qty: 1})
+      setCarts(oldCarts)
+   };
+
 
    return (
       <Card
          hoverable
          style={{
             width: "100%",
+            height: "200px",
             background: "white",
             padding: "10px",
             borderRadius: "20px",
             // border: "1px solid black",
          }}
+         onClick={onSelectProducts}
       >
          <Row justify="space-between">
             <Col>
                <Avatar
                   src={product.img}
-                  size={64}
+                  size={40}
                   style={{
                      marginBottom: "10px",
                   }}
@@ -42,7 +52,9 @@ export default function ProductCard({ product }) {
             <Col>
                <Typography.Title
                   level={4}
-                  ellipsis
+                  ellipsis={{
+                     rows: 2
+                  }}
                >
                   {product.name}
                </Typography.Title>

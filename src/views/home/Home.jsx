@@ -6,6 +6,8 @@ import OrderCart from '../../components/OrderCart';
 
 export default function Home() {
    const [menu, setMenu] = useState([]);
+   const [carts, setCarts] = useState([]);
+   
 
    const handleBurger = () => {
       const burger = products.filter(product => product.categories === "burger")
@@ -32,7 +34,7 @@ export default function Home() {
       setMenu(targetProducts)
    }, [])
 
-   // console.log(products);
+   console.log('carts=>', carts);
    return (
 
       <div
@@ -40,12 +42,18 @@ export default function Home() {
             width: "80%",
             margin: "0 auto",
             marginTop: "30px",
-            background: "pink",
-            padding: "16px"
+            // background: "pink",
+            // padding: "16px"
          }}
       >
          <Row >
-            <Col xs={16}>
+            <Col
+               xs={16}
+               style={{
+                  background: "pink",
+                  padding: "16px"
+               }}
+            >
                <Row
                   justify="center"
                   style={{
@@ -112,13 +120,18 @@ export default function Home() {
                      <Col xs={24} sm={12} md={6} key={product.id}>
                         <ProductCard
                            product={product}
+                           carts={carts}
+                           setCarts={setCarts}
                         />
                      </Col>
                   )}
                </Row>
             </Col>
-            <Col xs={8}>
-               <OrderCart />
+            <Col
+               xs={8}>
+               <OrderCart
+                  carts={carts}
+               />
             </Col>
          </Row>
 

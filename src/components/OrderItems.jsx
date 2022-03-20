@@ -1,21 +1,43 @@
 import React from 'react'
-import { Avatar, Button, Col, Row, Typography } from 'antd'
-import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { Avatar, Button, Col, Divider, Row, Typography } from 'antd'
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
-export default function OrderItems() {
+export default function OrderItems({product}) {
+
    return (
-      <Row>
-         <Col>
+      <Row
+         // style={{
+         //    background: "lightblue"
+         // }}
+      >
+         <Col
+            style={{
+               paddingRight: "8px"
+            }}
+         >
             <Avatar
-               src="https://buzzebees.blob.core.windows.net/campaigns/1553386-large?time=20220224120109"
+               src={product.img}
                size={64}
             />
          </Col>
-         <Col>
-            <Typography.Title level={5}>
-               Hickory burger
+         <Col xs={8}>
+            <Typography.Title
+               level={5}
+               style={{
+                  margin: "0px"
+               }}
+               ellipsis={{
+                  rows:2
+               }}
+            >
+               {product.name}
             </Typography.Title>
-            <Typography.Title level={5}>
+            <Typography.Title
+               level={5}
+               style={{
+                  marginTop: "0px"
+               }}
+            >
                XXXXXX
             </Typography.Title>
 
@@ -24,28 +46,47 @@ export default function OrderItems() {
          <Col>
             <Row justify="end">
                <Col>
-                  <Typography.Text>
-                     20 .-
-                  </Typography.Text>
+                  <Typography.Title
+                     level={4}
+                     style={{
+                        color: "#1890ff"
+                     }}
+                  >
+                     {product.price.toFixed(2)} .-
+                  </Typography.Title>
                </Col>
             </Row>
 
-            <Row>
+            <Row gutter={[8,0]}>
                <Col>
-                  <MinusCircleOutlined className="dynamic-delete-button" />
+                  <Button
+                     type="primary"
+                     ghost
+                     icon={<MinusOutlined />}
+                     shape="circle"
+                  />
                </Col>
                <Col>
-                  <Typography.Text>
+                  <Typography.Title
+                     level={4}
+
+                  >
                      02
-                  </Typography.Text>
+                  </Typography.Title>
                </Col>
                <Col>
-                  <PlusCircleOutlined className="dynamic-plus-button" />
+                  <Button
+                     type="primary"
+                     icon={<PlusOutlined />}
+                     shape="circle"
+                  />
                </Col>
             </Row>
 
          </Col>
+         <Divider />
       </Row>
+
 
    )
 }
