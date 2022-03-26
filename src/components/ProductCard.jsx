@@ -1,17 +1,27 @@
 import React from 'react';
 import { Avatar, Col, Row, Rate, Typography, Card } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
 
 export default function ProductCard({ product, carts, setCarts }) {
 
    const onSelectProducts = () => {
-
       const oldCarts = [...carts];
-      oldCarts.push({...product,qty: 1})
-      setCarts(oldCarts)
+      const targetProducts = oldCarts.find((p) => p.id === product.id)
+
+      if (targetProducts === undefined) {
+         oldCarts.push({...product, qty:1});
+         setCarts(oldCarts)
+      } else {
+         const index = oldCarts.indexOf(targetProducts)
+         oldCarts[index].qty = oldCarts[index].qty + 1;
+         setCarts(oldCarts)
+      }
+      console.log(oldCarts);
+      console.log("target",targetProducts);
+      
    };
 
-
+  
+   // console.log(product);
    return (
       <Card
          hoverable

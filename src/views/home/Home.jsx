@@ -34,7 +34,7 @@ export default function Home() {
       setMenu(targetProducts)
    }, [])
 
-   console.log('carts=>', carts);
+   // console.log('carts=>', carts);
    return (
 
       <div

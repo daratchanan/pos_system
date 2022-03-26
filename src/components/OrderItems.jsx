@@ -69,9 +69,8 @@ export default function OrderItems({product}) {
                <Col>
                   <Typography.Title
                      level={4}
-
                   >
-                     02
+                     {product.qty}
                   </Typography.Title>
                </Col>
                <Col>
