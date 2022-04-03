@@ -1,15 +1,45 @@
 import React from 'react'
-import { Avatar, Button, Col, Divider, Row, Typography } from 'antd'
-import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { Avatar, Button, Col, Divider, Row, Typography, Input } from 'antd'
+import { MinusOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 
-export default function OrderItems({product}) {
+
+export default function OrderItems({ product, carts, setCarts }) {
+   const handlePlus = () => {
+      const updateProduct = [...carts];
+      const targetProduct = updateProduct.find((c) => c.id === product.id);
+      const index = updateProduct.indexOf(targetProduct);
+      updateProduct[index].qty = updateProduct[index].qty + 1;
+      setCarts(updateProduct)
+   }
+
+   const handleMinus = () => {
+      const minusProduct = [...carts];
+      const targetProduct = minusProduct.find((c) => c.id === product.id);
+      const index = minusProduct.indexOf(targetProduct);
+      minusProduct[index].qty = minusProduct[index].qty - 1;
+      setCarts(minusProduct)
+   }
+
+   const handleDelete = () => {
+      const tempCarts = [...carts];
+      const newCarts = tempCarts.filter((c) => c.id !== product.id)
+      setCarts(newCarts)
+   }
+
+   const handleOnchange = (e) => {
+      const updateProduct = [...carts];
+      const targetProduct = updateProduct.find((c) => c.id === product.id)
+      const index = updateProduct.indexOf(targetProduct)
+      updateProduct[index].qty = Number(e.target.value)
+      setCarts(updateProduct)
+   }
+
+   // console.log("newCarts => ", newCarts);
+
+   console.log("carts => ", carts);
 
    return (
-      <Row
-         // style={{
-         //    background: "lightblue"
-         // }}
-      >
+      <Row>
          <Col
             style={{
                paddingRight: "8px"
@@ -27,7 +57,7 @@ export default function OrderItems({product}) {
                   margin: "0px"
                }}
                ellipsis={{
-                  rows:2
+                  rows: 2
                }}
             >
                {product.name}
@@ -38,7 +68,7 @@ export default function OrderItems({product}) {
                   marginTop: "0px"
                }}
             >
-               XXXXXX
+               {`product Id: ${product.id}`}
             </Typography.Title>
 
          </Col>
@@ -57,27 +87,42 @@ export default function OrderItems({product}) {
                </Col>
             </Row>
 
-            <Row gutter={[8,0]}>
+            <Row gutter={[8, 0]}>
                <Col>
-                  <Button
-                     type="primary"
-                     ghost
-                     icon={<MinusOutlined />}
-                     shape="circle"
-                  />
+                  {product.qty === 1 ?
+                     <Button
+                        danger
+                        shape="circle"
+                        icon={<DeleteOutlined />}
+                        onClick={handleDelete}
+                     />
+                     :
+                     <Button
+                        type="primary"
+                        ghost
+                        shape="circle"
+                        icon={< MinusOutlined />}
+                        onClick={handleMinus}
+                     />
+                  }
                </Col>
-               <Col>
-                  <Typography.Title
+               <Col >
+                  {/* <Typography.Title
                      level={4}
                   >
                      {product.qty}
-                  </Typography.Title>
+                  </Typography.Title> */}
+                  <Input
+                     value={product.qty}
+                     onChange={handleOnchange}
+                  />
                </Col>
                <Col>
                   <Button
                      type="primary"
                      icon={<PlusOutlined />}
                      shape="circle"
+                     onClick={handlePlus}
                   />
                </Col>
             </Row>

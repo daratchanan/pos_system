@@ -131,6 +131,7 @@ export default function Home() {
                xs={8}>
                <OrderCart
                   carts={carts}
+                  setCarts={setCarts}
                />
             </Col>
          </Row>

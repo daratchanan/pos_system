@@ -5,29 +5,29 @@ export default function ProductCard({ product, carts, setCarts }) {
 
    const onSelectProducts = () => {
       const oldCarts = [...carts];
-      const targetProducts = oldCarts.find((p) => p.id === product.id)
+      const targetProduct = oldCarts.find((p) => p.id === product.id)
 
-      if (targetProducts === undefined) {
-         oldCarts.push({...product, qty:1});
-         setCarts(oldCarts)
+      if (!targetProduct) {
+         oldCarts.push({ ...product, qty: 1 });
+         setCarts(oldCarts);
       } else {
-         const index = oldCarts.indexOf(targetProducts)
-         oldCarts[index].qty = oldCarts[index].qty + 1;
-         setCarts(oldCarts)
+         const index = oldCarts.indexOf(targetProduct);
+         oldCarts[index].qty = oldCarts[index].qty +1
+         // const newItems = {...targetProduct, qty: targetProduct.qty +1}
+         // oldCarts.splice(index, 1, newItems )
+         setCarts(oldCarts);
       }
-      console.log(oldCarts);
-      console.log("target",targetProducts);
-      
+      // console.log(targetProduct);
    };
 
-  
-   // console.log(product);
+
+   // console.log(carts);
    return (
       <Card
          hoverable
          style={{
             width: "100%",
-            height: "200px",
+            height: "250px",
             background: "white",
             padding: "10px",
             borderRadius: "20px",
